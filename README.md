@@ -97,15 +97,8 @@ A successful execution will write enriched Parquet data locally and load the dat
 ## Querying the data in Snowflake 
 
 Example queries
-```
-SELECT COUNT(*) FROM TAXI_TRIPS;
 
-SELECT pickup_zone, COUNT(*) AS trips
-FROM TAXI_TRIPS
-GROUP BY pickup_zone
-ORDER BY trips DESC
-LIMIT 10;
-```
+![NYC Taxi ETL Architecture](images/query_example.png)
 
 
 ## Example insights
@@ -136,4 +129,5 @@ This project was built to practice:
 
 Quentin Arehart
 GitHub: https://github.com/arehart95
+
 
