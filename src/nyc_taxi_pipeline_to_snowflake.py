@@ -6,13 +6,12 @@ from snowflake.connector.pandas_tools import write_pandas
 import pyarrow.parquet as pq
 from dotenv import load_dotenv
 load_dotenv()
-# -------------------------
-# CONFIG
-# -------------------------
-DIRECTORY = "/home/windfish/nyc-taxi-pipeline/"
-RAW_TAXI_PATH = DIRECTORY + "data/raw/yellow_tripdata_2025-10.parquet"
-ZONE_LOOKUP_PATH = DIRECTORY + "data/raw/taxi_zone_lookup.csv"
-ENRICHED_OUTPUT_PATH = DIRECTORY + "data/processed/yellow_taxi_enriched"
+
+
+# config
+RAW_TAXI_PATH = "data/raw/yellow_tripdata_2025-10.parquet"
+ZONE_LOOKUP_PATH = "data/raw/taxi_zone_lookup.csv"
+ENRICHED_OUTPUT_PATH = "data/processed/yellow_taxi_enriched"
 
 
 SNOWFLAKE_CONFIG = {
@@ -25,25 +24,18 @@ SNOWFLAKE_CONFIG = {
     "table": "TAXI_TRIPS"
 }
 
-# -------------------------
-# SPARK SESSION
-# -------------------------
-
+# spark session
 spark = SparkSession.builder \
     .appName("NYCTaxiEndToEndPipeline") \
     .getOrCreate()
 
-# -------------------------
-# INGEST
-# -------------------------
 
+# ingestion
 print("Reading raw taxi parquet...")
 df = spark.read.parquet(RAW_TAXI_PATH)
 
-# -------------------------
-# CLEAN & TRANSFORM
-# -------------------------
 
+# clean and transform
 print("Cleaning and transforming data...")
 
 df = df.filter(col("trip_distance") > 0)
@@ -55,10 +47,8 @@ df = df.withColumn(
      unix_timestamp("tpep_pickup_datetime")) / 60
 )
 
-# -------------------------
-# ZONE LOOKUP JOIN
-# -------------------------
 
+# zone look up join
 print("Joining zone lookup...")
 
 zones = spark.read.csv(ZONE_LOOKUP_PATH, header=True, inferSchema=True)
@@ -81,18 +71,15 @@ df = df.join(
     how="left"
 )
 
-# -------------------------
-# WRITE ENRICHED PARQUET
-# -------------------------
 
+# write enriched parquet
 print("Writing enriched parquet dataset...")
 df.write.mode("overwrite").parquet(ENRICHED_OUTPUT_PATH)
 
-# -------------------------
-# LOAD TO SNOWFLAKE
-# -------------------------
 
+# load to snowflake
 print("Loading data into Snowflake...")
+
 
 # Read parquet into pandas (OK for 1 month of data)
 table = pq.read_table(ENRICHED_OUTPUT_PATH)
