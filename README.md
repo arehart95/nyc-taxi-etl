@@ -8,21 +8,8 @@ It demonstrates how to ingest raw Parquet data, perform transformations and dime
 The pipeline is designed to reflect **real-world DE workflows**, including environment-based configuration, schema management, and cloud data warehouse loading.
 
 ## Architecture
-```
-Raw Parquet Data
-        |
-        v
-Apache Spark (ETL)
-  - Cleaning & filtering
-  - Feature engineering
-  - Zone lookup join
-        |
-        v
-Enriched Parquet Dataset
-        |
-        v
-Snowflake Data Warehouse
-```
+
+![NYC Taxi ETL Architecture](images/architecture.png)
 
 ## Technologies Used
 
@@ -149,3 +136,4 @@ This project was built to practice:
 
 Quentin Arehart
 GitHub: https://github.com/arehart95
+
