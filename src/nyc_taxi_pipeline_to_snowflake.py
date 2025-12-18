@@ -47,6 +47,10 @@ df = df.withColumn(
      unix_timestamp("tpep_pickup_datetime")) / 60
 )
 
+assert df.count() > 0
+assert df.filter(col("trip_distance") < 0).count() == 0
+df = df.select([col(c).alias(c.upper()) for c in df.columns])
+
 
 # zone look up join
 print("Joining zone lookup...")
