@@ -39,6 +39,7 @@ nyc-taxi-etl/
 │
 ├── .env.example
 ├── .gitignore
+├── requirements.txt
 └── README.md
 ```
 
@@ -129,5 +130,6 @@ This project was built to practice:
 
 Quentin Arehart
 GitHub: https://github.com/arehart95
+
 
 
