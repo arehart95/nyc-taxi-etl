@@ -61,7 +61,7 @@ nyc-taxi-etl/
 
 1. **Clone the repository**
 ```
-git clone https://github.com/yourusername/nyc-taxi-etl.git
+git clone https://github.com/arehart95/nyc-taxi-etl.git
 cd nyc-taxi-etl
 ```
 
@@ -130,6 +130,7 @@ This project was built to practice:
 
 Quentin Arehart
 GitHub: https://github.com/arehart95
+
 
 
 
