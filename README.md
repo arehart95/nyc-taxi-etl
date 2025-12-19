@@ -128,8 +128,9 @@ This project was built to practice:
 
 ## Author
 
-Quentin Arehart
+Quentin Arehart  
 GitHub: https://github.com/arehart95
+
 
 
 
